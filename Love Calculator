@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+// Function to replace spaces with underscores
+void replaceSpaces(char* str) {
+    for (int i = 0; str[i]; i++) {
+        if (str[i] == ' ')
+            str[i] = '_';
+    }
+}
+
+int main() {
+    char name1[100], name2[100];
+    int count1 = 0, count2 = 0, score;
+
+    printf("Please enter your name: ");
+    fgets(name1, sizeof(name1), stdin);
+    name1[strcspn(name1, "\n")] = '\0'; // Remove newline character
+    replaceSpaces(name1); // Replace spaces with underscores
+
+    printf("Please enter your partner's name: ");
+    fgets(name2, sizeof(name2), stdin);
+    name2[strcspn(name2, "\n")] = '\0'; // Remove newline character
+    replaceSpaces(name2); // Replace spaces with underscores
+
+    // Count occurrences of letters in "TRUE" and "LOVE"
+    for (int i = 0; i < strlen(name1); i++) {
+        char ch = tolower(name1[i]);
+        if (ch == 't' || ch == 'r' || ch == 'u' || ch == 'e')
+            count1++;
+    }
+
+    for (int i = 0; i < strlen(name2); i++) {
+        char ch = tolower(name2[i]);
+        if (ch == 't' || ch == 'r' || ch == 'u' || ch == 'e')
+            count1++;
+    }
+
+    for (int i = 0; i < strlen(name1); i++) {
+        char ch = tolower(name1[i]);
+        if (ch == 'l' || ch == 'o' || ch == 'v' || ch == 'e')
+            count2++;
+    }
+
+    for (int i = 0; i < strlen(name2); i++) {
+        char ch = tolower(name2[i]);
+        if (ch == 'l' || ch == 'o' || ch == 'v' || ch == 'e')
+            count2++;
+    }
+
+    // Combine counts to make a 2-digit score
+    score = count1 * 10 + count2;
+
+    // Display result based on the love score
+    if (score < 10 || score > 90)
+        printf("Your score is %d. You go together like coke and mentos.\n", score);
+    else if (score >= 40 && score <= 50)
+        printf("Your score is %d. You are alright together.\n", score);
+    else
+        printf("Your score is %d.\n", score);
+
+    return 0;
+}
+
